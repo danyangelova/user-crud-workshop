@@ -1,31 +1,24 @@
 const users = [
     {
         id: 1,
-        name: "Daniela",
+        firstName: "Daniela",
         age: 29,
         city: "Plovdiv",
         email: "dani@example.com",
         picture: "https://img.wattpad.com/63895d84f3f11796f8d0828bee7a022e16070c63/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f6d4736533368523970666c6358773d3d2d313131303938363035312e313639386430303664376131636138383739353134373937343438342e6a7067"
-    },
-    {
-        id: 1,
-        name: "Daniela",
-        age: 29,
-        city: "Plovdiv",
-        email: "dani@example.com",
-        picture: "https://img.wattpad.com/63895d84f3f11796f8d0828bee7a022e16070c63/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f6d4736533368523970666c6358773d3d2d313131303938363035312e313639386430303664376131636138383739353134373937343438342e6a7067"
-    },
+    }
 ]
 
+// -----DOM elements-----
 const addUserBtn = document.getElementById("add-user-btn");
 const modal = document.getElementById("modal");
 const addUserForm = document.getElementById("add-user-form");
 const cancelBtn = document.getElementById("cancel-btn");
 
 
-
 function renderUsers() {
     const tbody = document.getElementById("user-table-body");
+    tbody.innerHTML = "";
 
     users.forEach((user, index) => {
         const row = document.createElement("tr");
@@ -33,9 +26,9 @@ function renderUsers() {
         row.innerHTML = `
       <td>${index + 1}</td>
       <td>
-        <img src="${user.picture}" alt="${user.name} width="40" height="40" >
+        <img src="${user.picture}" width="40" height="40" >
       </td>
-      <td>${user.name}</td>
+      <td>${user.firstName}</td>
       <td>${user.age}</td>
       <td>${user.city}</td>
       <td>${user.email}</td>
@@ -64,3 +57,30 @@ function closeModal() {
 
 addUserBtn.addEventListener("click", openModal);
 cancelBtn.addEventListener("click", closeModal);
+
+
+addUserForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const firstName = document.getElementById("firstName").value.trim();
+    const age = Number(document.getElementById("age").value);
+    const city = document.getElementById("city").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const picture = document.getElementById("picture").value.trim();
+
+    const newUser = {
+        id: users.length ? users[users.length - 1].id + 1 : 1,
+        firstName,
+        age,
+        city,
+        email,
+        picture
+    }
+
+    users.push(newUser);
+    renderUsers();
+    closeModal();
+})
+
+
+
