@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(135deg, #9f62e0, #5f97f7);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.container h1 {
+    text-align: center;
+    margin-top: 0;
+    color: #000;
+    font-size: 29px;
+    letter-spacing: 1px;
+}
+
+.container button {
+    display: block;
+    margin: 0 auto 25px auto;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: white;
+    background: #7e60da;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.container button:hover {
+    background: #5d1bc0;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    font-size: 16px;
+    margin-top: 10px;
+    padding: 10px;
+    border-collapse: collapse;
+}
+
+thead th {
+    background: #9e8fe3;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: normal;
+    letter-spacing: 1px;
+    border: 1px solid #ccc;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    border: 1px solid #ccc;
+}
+
+tbody i {
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+tbody i:hover {
+    color: #5d1bc0;
+}
