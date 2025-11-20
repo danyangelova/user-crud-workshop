@@ -4,13 +4,13 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="style.css" />
       <title>Document</title>
    </head>
    <body>
       <div class="container">
          <h1>User Management</h1>
-         <button>Add New User</button>
+         <button class="add-new-user" id="add-user-btn">Add New User</button>
 
          <table>
             <thead>
@@ -26,9 +26,43 @@
             </thead>
 
             <tbody id="user-table-body">
-                <!-- rows will be generated dynamically with js -->
+               <!-- rows will be generated dynamically with js -->
             </tbody>
          </table>
+
+         <!-- Modal -->
+
+         <div class="modal-overlay hidden" id="modal">
+            <div class="modal">
+               <h2>Add New User</h2>
+               <form id="add-user-form">
+                  <div class="form-group">
+                     <label for="name">Name</label>
+                     <input type="text" name="name" required />
+                  </div>
+                  <div class="form-group">
+                     <label for="age">Age</label>
+                     <input type="text" name="age" required />
+                  </div>
+                  <div class="form-group">
+                     <label for="city">City</label>
+                     <input type="text" name="city" required />
+                  </div>
+                  <div class="form-group">
+                     <label for="email">Email</label>
+                     <input type="email" name="email" required />
+                  </div>
+                  <div class="form-group">
+                     <label for="picture">Picture</label>
+                     <input type="url" name="picture" required />
+                  </div>
+                  <div class="modal-actions">
+                     <button type="submit">Save</button>
+                     <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+                  </div>
+               </form>
+            </div>
+         </div>
       </div>
 
       <script src="script.js"></script>

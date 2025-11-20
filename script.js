@@ -17,6 +17,13 @@ const users = [
     },
 ]
 
+const addUserBtn = document.getElementById("add-user-btn");
+const modal = document.getElementById("modal");
+const addUserForm = document.getElementById("add-user-form");
+const cancelBtn = document.getElementById("cancel-btn");
+
+
+
 function renderUsers() {
     const tbody = document.getElementById("user-table-body");
 
@@ -26,7 +33,7 @@ function renderUsers() {
         row.innerHTML = `
       <td>${index + 1}</td>
       <td>
-        <img src="${user.picture}" alt="${user.name} width="40" height="40" ">
+        <img src="${user.picture}" alt="${user.name} width="40" height="40" >
       </td>
       <td>${user.name}</td>
       <td>${user.age}</td>
@@ -44,3 +51,16 @@ function renderUsers() {
 }
 
 window.addEventListener("DOMContentLoaded", renderUsers);
+
+
+function openModal() {
+    modal.classList.remove("hidden");
+}
+
+function closeModal() {
+    modal.classList.add("hidden");
+    addUserForm.reset();
+}
+
+addUserBtn.addEventListener("click", openModal);
+cancelBtn.addEventListener("click", closeModal);
