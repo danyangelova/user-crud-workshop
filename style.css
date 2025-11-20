@@ -73,3 +73,15 @@ tbody i {
 tbody i:hover {
     color: #5d1bc0;
 }
+
+.view-icon {
+    color: #17a2b8;
+}
+
+.edit-icon {
+    color: #ffc107;
+}
+
+.delete-icon {
+    color: #dc3545;
+}

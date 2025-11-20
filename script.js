@@ -1,0 +1,46 @@
+const users = [
+    {
+        id: 1,
+        name: "Daniela",
+        age: 29,
+        city: "Plovdiv",
+        email: "dani@example.com",
+        picture: "https://img.wattpad.com/63895d84f3f11796f8d0828bee7a022e16070c63/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f6d4736533368523970666c6358773d3d2d313131303938363035312e313639386430303664376131636138383739353134373937343438342e6a7067"
+    },
+    {
+        id: 1,
+        name: "Daniela",
+        age: 29,
+        city: "Plovdiv",
+        email: "dani@example.com",
+        picture: "https://img.wattpad.com/63895d84f3f11796f8d0828bee7a022e16070c63/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f6d4736533368523970666c6358773d3d2d313131303938363035312e313639386430303664376131636138383739353134373937343438342e6a7067"
+    },
+]
+
+function renderUsers() {
+    const tbody = document.getElementById("user-table-body");
+
+    users.forEach((user, index) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>
+        <img src="${user.picture}" alt="${user.name} width="40" height="40" ">
+      </td>
+      <td>${user.name}</td>
+      <td>${user.age}</td>
+      <td>${user.city}</td>
+      <td>${user.email}</td>
+      <td>
+        <i class="fa-solid fa-circle-info view-icon"></i>
+        <i class="fa-solid fa-pen-to-square edit-icon"></i>
+        <i class="fa-solid fa-trash delete-icon"></i>
+      </td>
+        `
+
+        tbody.appendChild(row);
+    })
+}
+
+window.addEventListener("DOMContentLoaded", renderUsers);
