@@ -15,9 +15,20 @@ const modalLayer = document.getElementById("modal-layer");
 const addUserForm = document.getElementById("add-user-form");
 const cancelBtn = document.getElementById("cancel-btn");
 
+const usersTableBody = document.getElementById("users-table-body");
+const infoModalLayer = document.getElementById("info-modal-layer");
+const infoPic = document.getElementById("info-pic");
+const infoName = document.getElementById("info-name");
+const infoAge = document.getElementById("info-age");
+const infoCity = document.getElementById("info-city");
+const infoEmail = document.getElementById("info-email");
+const infoCloseBtn = document.getElementById("info-close-btn");
 
+
+
+// -----Render new row-----
 function renderUsers() {
-    const tbody = document.getElementById("user-table-body");
+    const tbody = document.getElementById("users-table-body");
     tbody.innerHTML = "";
 
     users.forEach((user, index) => {
@@ -33,7 +44,7 @@ function renderUsers() {
       <td>${user.city}</td>
       <td>${user.email}</td>
       <td>
-        <i class="fa-solid fa-circle-info view-icon"></i>
+        <i class="fa-solid fa-circle-info view-icon" data-user-id="${user.id}"></i>
         <i class="fa-solid fa-pen-to-square edit-icon"></i>
         <i class="fa-solid fa-trash delete-icon"></i>
       </td>
@@ -45,11 +56,10 @@ function renderUsers() {
 
 window.addEventListener("DOMContentLoaded", renderUsers);
 
-
+// -----Add New User Modal Management functions-----
 function openModal() {
     modalLayer.classList.remove("hidden");
 }
-
 function closeModal() {
     modalLayer.classList.add("hidden");
     addUserForm.reset();
@@ -59,6 +69,7 @@ addUserBtn.addEventListener("click", openModal);
 cancelBtn.addEventListener("click", closeModal);
 
 
+// -----Create New User in the table-----
 addUserForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -82,5 +93,30 @@ addUserForm.addEventListener("submit", function (event) {
     closeModal();
 })
 
+// -----Info Modal Management functions-----
+function openInfoModal(user) {
+    infoPic.src = user.picture;
+    infoName.textContent = user.firstName;
+    infoAge.textContent = user.age;
+    infoCity.textContent = user.city;
+    infoEmail.textContent = user.email;
+
+    infoModalLayer.classList.remove("hidden");
+}
+function closeInfoModal() {
+    infoModalLayer.classList.add("hidden");
+}
 
 
+// -----Info Modal Functionality-----
+usersTableBody.addEventListener("click", function (event) {
+    // console.log(event);
+    if (event.target.classList.contains("view-icon")) {
+        const userId = Number(event.target.dataset.userId);
+        const userFromUsers = users.find(user => user.id === userId); // === !!
+
+        openInfoModal(userFromUsers);
+    }
+})
+
+infoCloseBtn.addEventListener("click", closeInfoModal);

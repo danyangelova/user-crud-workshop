@@ -25,13 +25,12 @@
                </tr>
             </thead>
 
-            <tbody id="user-table-body">
+            <tbody id="users-table-body">
                <!-- rows will be generated dynamically with js -->
             </tbody>
          </table>
 
-         <!-- Modal -->
-
+         <!-- Add New User Modal -->
          <div class="modal-layer hidden" id="modal-layer">
             <div class="modal">
                <h2>Add New User</h2>
@@ -61,6 +60,37 @@
                      <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
                   </div>
                </form>
+            </div>
+         </div>
+
+         <!-- Info User Modal -->
+         <div class="modal-layer hidden" id="info-modal-layer">
+            <div class="modal">
+               <h2>User info</h2>
+               <div class="user-info-body">
+                  <div class="info-user-pic">
+                     <img id="info-pic" src="" />
+                  </div>
+                  <p>
+                     Name:
+                     <span id="info-name">Daniela</span>
+                  </p>
+                  <p>
+                     Age:
+                     <span id="info-age"></span>
+                  </p>
+                  <p>
+                     City:
+                     <span id="info-city"></span>
+                  </p>
+                  <p>
+                     Email:
+                     <span id="info-email"></span>
+                  </p>
+               </div>
+               <div class="modal-actions">
+                  <button type="button" id="info-close-btn">Close</button>
+               </div>
             </div>
          </div>
       </div>
