@@ -11,7 +11,7 @@ const users = [
 
 // -----DOM elements-----
 const addUserBtn = document.getElementById("add-user-btn");
-const modal = document.getElementById("modal");
+const modalLayer = document.getElementById("modal-layer");
 const addUserForm = document.getElementById("add-user-form");
 const cancelBtn = document.getElementById("cancel-btn");
 
@@ -47,11 +47,11 @@ window.addEventListener("DOMContentLoaded", renderUsers);
 
 
 function openModal() {
-    modal.classList.remove("hidden");
+    modalLayer.classList.remove("hidden");
 }
 
 function closeModal() {
-    modal.classList.add("hidden");
+    modalLayer.classList.add("hidden");
     addUserForm.reset();
 }
 

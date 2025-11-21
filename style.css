@@ -92,7 +92,7 @@ tbody i:hover {
 }
 
 /* -------------MODAL------------- */
-.modal-overlay {
+.modal-layer {
     position: fixed;
     top: 0;
     right: 0;
