@@ -46,7 +46,7 @@ function renderUsers() {
       <td>
         <i class="fa-solid fa-circle-info view-icon" data-user-id="${user.id}"></i>
         <i class="fa-solid fa-pen-to-square edit-icon"></i>
-        <i class="fa-solid fa-trash delete-icon"></i>
+        <i class="fa-solid fa-trash delete-icon" data-user-id="${user.id}"></i>
       </td>
         `
 
@@ -73,19 +73,19 @@ cancelBtn.addEventListener("click", closeModal);
 addUserForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const firstName = document.getElementById("firstName").value.trim();
-    const age = Number(document.getElementById("age").value);
-    const city = document.getElementById("city").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const picture = document.getElementById("picture").value.trim();
+    const firstNameValue = document.getElementById("firstName").value.trim();
+    const ageValue = Number(document.getElementById("age").value);
+    const cityValue = document.getElementById("city").value.trim();
+    const emailValue = document.getElementById("email").value.trim();
+    const pictureValue = document.getElementById("picture").value.trim();
 
     const newUser = {
         id: users.length ? users[users.length - 1].id + 1 : 1,
-        firstName,
-        age,
-        city,
-        email,
-        picture
+        firstName: firstNameValue,
+        age: ageValue,
+        city: cityValue,
+        email: emailValue,
+        picture: pictureValue
     }
 
     users.push(newUser);
@@ -108,15 +108,35 @@ function closeInfoModal() {
 }
 
 
-// -----Info Modal Functionality-----
+// -----Action box Functionality-----
+
 usersTableBody.addEventListener("click", function (event) {
     // console.log(event);
+
+    //User INFO
     if (event.target.classList.contains("view-icon")) {
         const userId = Number(event.target.dataset.userId);
         const userFromUsers = users.find(user => user.id === userId); // === !!
 
         openInfoModal(userFromUsers);
     }
+    //User DELETE
+    if (event.target.classList.contains("delete-icon")) {
+        const userId = Number(event.target.dataset.userId);
+
+        deleteUser(userId);
+    }
 })
+
+function deleteUser(id) {
+    if (!confirm("Are you sure you want to delete this user?")) return;
+
+    const index = users.findIndex(user => user.id === id);
+    if (index !== -1) {
+        users.splice(index, 1);
+    }
+
+    renderUsers();
+}
 
 infoCloseBtn.addEventListener("click", closeInfoModal);

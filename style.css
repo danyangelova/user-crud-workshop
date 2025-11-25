@@ -105,7 +105,7 @@ tbody i:hover {
     z-index: 1000;
 }
 
-.modal {
+.modal-container {
     background: white;
     padding: 20px 25px;
     border-radius: 10px;
@@ -157,7 +157,7 @@ tbody i:hover {
 
 /* -------------INFO MODAL------------- */
 
-.user-info-body p{
+.modal-info-body p{
     font-weight: bold;
 }
 
