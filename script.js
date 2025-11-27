@@ -26,10 +26,9 @@ const infoCloseBtn = document.getElementById("info-close-btn");
 
 
 
-// -----Render new row-----
+// -----Render Users Table-----------------------------------------------------
 function renderUsers() {
-    const tbody = document.getElementById("users-table-body");
-    tbody.innerHTML = "";
+    usersTableBody.innerHTML = "";
 
     users.forEach((user, index) => {
         const row = document.createElement("tr");
@@ -50,13 +49,16 @@ function renderUsers() {
       </td>
         `
 
-        tbody.appendChild(row);
+        usersTableBody.appendChild(row);
     })
 }
 
 window.addEventListener("DOMContentLoaded", renderUsers);
+//--------------------------------------------------------------------------------
 
-// -----Add New User Modal Management functions-----
+
+
+// -----"Add New User" Modal Management functions---------------------------------
 function openModal() {
     modalLayer.classList.remove("hidden");
 }
@@ -67,9 +69,11 @@ function closeModal() {
 
 addUserBtn.addEventListener("click", openModal);
 cancelBtn.addEventListener("click", closeModal);
+//--------------------------------------------------------------------------------
 
 
-// -----Create New User in the table-----
+
+// -----Create New User on Form Submission----------------------------------------
 addUserForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -92,8 +96,11 @@ addUserForm.addEventListener("submit", function (event) {
     renderUsers();
     closeModal();
 })
+//--------------------------------------------------------------------------------
 
-// -----Info Modal Management functions-----
+
+
+// -----"Info" Modal Management functions-----------------------------------------
 function openInfoModal(user) {
     infoPic.src = user.picture;
     infoName.textContent = user.firstName;
@@ -107,13 +114,17 @@ function closeInfoModal() {
     infoModalLayer.classList.add("hidden");
 }
 
+infoCloseBtn.addEventListener("click", closeInfoModal);
+//--------------------------------------------------------------------------------
 
-// -----Action box Functionality-----
+
+
+// -----User Actions (View / Edit / Delete)---------------------------------------
 
 usersTableBody.addEventListener("click", function (event) {
     // console.log(event);
 
-    //User INFO
+    //User VIEW
     if (event.target.classList.contains("view-icon")) {
         const userId = Number(event.target.dataset.userId);
         const userFromUsers = users.find(user => user.id === userId); // === !!
@@ -138,5 +149,4 @@ function deleteUser(id) {
 
     renderUsers();
 }
-
-infoCloseBtn.addEventListener("click", closeInfoModal);
+//--------------------------------------------------------------------------------
