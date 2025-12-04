@@ -12,10 +12,10 @@ const users = [
 // -----DOM elements-----
 const addUserBtn = document.getElementById("add-user-btn");
 const modalLayer = document.getElementById("modal-layer");
-const addUserForm = document.getElementById("add-user-form");
-const cancelBtn = document.getElementById("cancel-btn");
-
+const userForm = document.getElementById("user-form");
+const formCancelBtn = document.getElementById("form-cancel-btn");
 const usersTableBody = document.getElementById("users-table-body");
+
 const infoModalLayer = document.getElementById("info-modal-layer");
 const infoPic = document.getElementById("info-pic");
 const infoName = document.getElementById("info-name");
@@ -23,6 +23,19 @@ const infoAge = document.getElementById("info-age");
 const infoCity = document.getElementById("info-city");
 const infoEmail = document.getElementById("info-email");
 const infoCloseBtn = document.getElementById("info-close-btn");
+
+const firstNameInput = document.getElementById("firstName");
+const ageInput = document.getElementById("age");
+const cityInput = document.getElementById("city");
+const emailInput = document.getElementById("email");
+const pictureInput = document.getElementById("picture");
+
+//Add/Edit mode toggle elements
+const modalTitle = document.getElementById("modal-title");
+const modalSaveBtn = document.getElementById("modal-save-btn");
+
+// null -> Add mode    /   user id -> edit mode
+let editModeUserId = null;
 
 
 
@@ -44,7 +57,7 @@ function renderUsers() {
       <td>${user.email}</td>
       <td>
         <i class="fa-solid fa-circle-info view-icon" data-user-id="${user.id}"></i>
-        <i class="fa-solid fa-pen-to-square edit-icon"></i>
+        <i class="fa-solid fa-pen-to-square edit-icon" data-user-id=${user.id}></i>
         <i class="fa-solid fa-trash delete-icon" data-user-id="${user.id}"></i>
       </td>
         `
@@ -58,41 +71,61 @@ window.addEventListener("DOMContentLoaded", renderUsers);
 
 
 
-// -----"Add New User" Modal Management functions---------------------------------
+// -----Modal Form Management functions------------------------------------------
 function openModal() {
     modalLayer.classList.remove("hidden");
 }
 function closeModal() {
     modalLayer.classList.add("hidden");
-    addUserForm.reset();
+    userForm.reset();
+
+    editModeUserId = null;
+    modalTitle.textContent = "Add user";
+    modalSaveBtn.textContent = "Add user";
 }
 
 addUserBtn.addEventListener("click", openModal);
-cancelBtn.addEventListener("click", closeModal);
+formCancelBtn.addEventListener("click", closeModal);
 //--------------------------------------------------------------------------------
 
 
 
-// -----Create New User on Form Submission----------------------------------------
-addUserForm.addEventListener("submit", function (event) {
+// -----Create/Edit User on Form Submission----------------------------------------
+userForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const firstNameValue = document.getElementById("firstName").value.trim();
-    const ageValue = Number(document.getElementById("age").value);
-    const cityValue = document.getElementById("city").value.trim();
-    const emailValue = document.getElementById("email").value.trim();
-    const pictureValue = document.getElementById("picture").value.trim();
+    //read the values
+    const firstNameValue = firstNameInput.value.trim();
+    const ageValue = Number(ageInput.value);
+    const cityValue = cityInput.value.trim();
+    const emailValue = emailInput.value.trim();
+    const pictureValue = pictureInput.value.trim();
 
-    const newUser = {
-        id: users.length ? users[users.length - 1].id + 1 : 1,
-        firstName: firstNameValue,
-        age: ageValue,
-        city: cityValue,
-        email: emailValue,
-        picture: pictureValue
+    //Add mode
+    if (editModeUserId === null) {
+        const newUser = {
+            id: users.length ? users[users.length - 1].id + 1 : 1,
+            firstName: firstNameValue,
+            age: ageValue,
+            city: cityValue,
+            email: emailValue,
+            picture: pictureValue
+        }
+        users.push(newUser);
+    } else {
+        //Edit mode
+        const index = users.findIndex(user => user.id === editModeUserId);
+        if (index !== - 1) {
+            users[index] = {
+                id: editModeUserId,
+                firstName: firstNameValue,
+                age: ageValue,
+                city: cityValue,
+                email: emailValue,
+                picture: pictureValue
+            }
+        }
     }
-
-    users.push(newUser);
     renderUsers();
     closeModal();
 })
@@ -120,22 +153,40 @@ infoCloseBtn.addEventListener("click", closeInfoModal);
 
 
 // -----User Actions (View / Edit / Delete)---------------------------------------
-
 usersTableBody.addEventListener("click", function (event) {
-    // console.log(event);
+    const actionIcon = event.target.closest(".view-icon, .edit-icon, .delete-icon");
+    if (!actionIcon) return;
 
-    //User VIEW
-    if (event.target.classList.contains("view-icon")) {
-        const userId = Number(event.target.dataset.userId);
-        const userFromUsers = users.find(user => user.id === userId); // === !!
+    const userID = Number(actionIcon.dataset.userId);
+
+    //User VIEW click
+    if (actionIcon.classList.contains("view-icon")) {
+        const userFromUsers = users.find(user => user.id === userID); // === !!
 
         openInfoModal(userFromUsers);
     }
-    //User DELETE
-    if (event.target.classList.contains("delete-icon")) {
-        const userId = Number(event.target.dataset.userId);
+    //User EDIT click
+    if (actionIcon.classList.contains("edit-icon")) {
+        const userFromUsers = users.find(user => user.id === userID);
+        if (!userFromUsers) return;
 
-        deleteUser(userId);
+        //edit mode
+        editModeUserId = userID;
+        modalTitle.textContent = "Edit user";
+        modalSaveBtn.textContent = "Save changes";
+
+        //fill the form
+        firstNameInput.value = userFromUsers.firstName;
+        ageInput.value = userFromUsers.age;
+        cityInput.value = userFromUsers.city;
+        emailInput.value = userFromUsers.email;
+        pictureInput.value = userFromUsers.picture;
+
+        openModal();
+    }
+    //User DELETE click
+    if (actionIcon.classList.contains("delete-icon")) {
+        deleteUser(userID);
     }
 })
 
