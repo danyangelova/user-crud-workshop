@@ -114,8 +114,8 @@ tbody i:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
-.modal h2 {
-    margin-top: 0;
+.modal-container h2 {
+    margin-top: 5px;
     font-size: 22px;
 }
 
@@ -161,7 +161,7 @@ tbody i:hover {
     font-weight: bold;
 }
 
-.user-info-body p span{
+.modal-info-body p span{
     font-weight: normal;
 }
 
